@@ -1,0 +1,16 @@
+<resources>
+    <string name="app_name">Flickr Sample</string>
+    <string name="toolbar_title">Flickr Feed</string>
+
+    <string name="no_photos_found">No photos found!</string>
+
+    <string name="default_error_message">Something went wrong! Please try again.</string>
+    <string name="please_wait">Please wait…</string>
+    <string name="label_refresh">Refresh</string>
+
+    <string name="cd_image_to_be_displayed">Image to be displayed</string>
+    <string name="place_holder_title">Title Text</string>
+    <string name="toolbar_title_imageviewer">Image Viewer</string>
+    <string name="photo_viewer">Photo Viewer</string>
+
+</resources>

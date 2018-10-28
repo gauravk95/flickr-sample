@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="@dimen/margin_8dp">
+
+    <com.github.flickrsample.ui.custom.RoundedCornerImageView
+        android:id="@+id/item_image"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/margin_8dp"
+        android:contentDescription="@string/cd_image_to_be_displayed"
+        android:scaleType="fitCenter"
+        android:src="@drawable/sample"
+        android:background="@color/light_grey"
+        app:corner="8dp"
+        />
+
+    <com.github.flickrsample.ui.custom.CustomTextView
+        style="@style/text_font_opensans_semi_bold"
+        android:id="@+id/item_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bottom_rounded_rect_transparent_black"
+        android:singleLine="true"
+        android:layout_marginStart="@dimen/margin_8dp"
+        android:layout_marginEnd="@dimen/margin_8dp"
+        android:padding="@dimen/padding_4dp"
+        android:text="@string/place_holder_title"
+        android:textColor="@color/white"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+</android.support.constraint.ConstraintLayout>
