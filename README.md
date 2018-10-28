@@ -1,6 +1,8 @@
 # Flickr Sample
 A Project to show implementation of Flickr API with endless feed, written in kotlin using MVP Structure.
 
+![Demo](https://raw.githubusercontent.com/gauravk95/flickr-sample/master/screenshot.jpg)
+
 ### This project uses:
 * **RxJava 2** - For Reactive Programming
 * **Dagger 2** - For Dependency Injection
