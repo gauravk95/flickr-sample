@@ -21,8 +21,9 @@ import android.view.MenuItem
 
 import com.github.flickrsample.R
 import com.github.flickrsample.base.BaseActivity
-import com.github.flickrsample.utils.ActivityUtils
-import com.github.flickrsample.utils.ViewUtils
+import com.github.flickrsample.utils.ext.applyFontForToolbarTitle
+import com.github.flickrsample.utils.ext.findFragmentById
+import com.github.flickrsample.utils.ext.setFragment
 
 /**
  * The Gallery activity, holds the [GalleryFragment]
@@ -37,10 +38,9 @@ class GalleryActivity : BaseActivity() {
 
         setupToolbar()
 
-        var galleryFragment: GalleryFragment? = supportFragmentManager.findFragmentById(R.id.content_frame) as? GalleryFragment
+        val galleryFragment = findFragmentById<GalleryFragment>(R.id.content_frame)
         if (galleryFragment == null) {
-            galleryFragment = GalleryFragment.newInstance()
-            ActivityUtils.addFragmentToActivity(supportFragmentManager, galleryFragment, R.id.content_frame)
+            setFragment(GalleryFragment.newInstance(), R.id.content_frame)
         }
 
     }
@@ -52,7 +52,7 @@ class GalleryActivity : BaseActivity() {
         supportActionBar?.setHomeAsUpIndicator(R.drawable.ic_close_white)
         supportActionBar?.title = getText(R.string.toolbar_title)
 
-        ViewUtils.applyFontForToolbarTitle(this, R.id.toolbar)
+        toolbar.applyFontForToolbarTitle()
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {

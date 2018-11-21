@@ -13,7 +13,7 @@ import android.widget.TextView
 import com.github.flickrsample.R
 import com.github.flickrsample.data.models.local.PhotoItem
 import com.github.flickrsample.utils.FlickrUtils
-import com.github.flickrsample.utils.GeneralUtils
+import com.github.flickrsample.utils.ext.loadImageFromLinkWithLoadingProgress
 
 /**
  * Custom View Pager to support image sliding
@@ -23,7 +23,7 @@ class FullScreenImageAdapter constructor(
         private val mContext: Context,
         private val mPhotoItems: List<PhotoItem>) : PagerAdapter() {
 
-    override fun getItemPosition( obj: Any): Int {
+    override fun getItemPosition(obj: Any): Int {
         val dummyItem = (obj as RelativeLayout).tag as PhotoItem
         val position = mPhotoItems.indexOf(dummyItem)
         return if (position >= 0) {
@@ -56,7 +56,7 @@ class FullScreenImageAdapter constructor(
         else
             textDisplay.visibility = View.GONE
 
-        GeneralUtils.loadImageFromLinkWithLoadingProgress(mContext, imgDisplay,
+        imgDisplay.loadImageFromLinkWithLoadingProgress(
                 FlickrUtils.getFlickrImageLink(photoItem.id,
                         photoItem.secret, photoItem.server, photoItem.farm,
                         FlickrUtils.LARGE_1600)) //LARGE_2048 image unavailable

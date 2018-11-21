@@ -18,7 +18,6 @@ package com.github.flickrsample.base
 import com.github.flickrsample.R
 import com.github.flickrsample.data.source.repository.AppRepository
 import com.github.flickrsample.data.source.network.NetworkError
-import com.github.flickrsample.utils.GeneralUtils
 import com.github.flickrsample.utils.rx.SchedulerProvider
 
 import io.reactivex.disposables.CompositeDisposable
@@ -59,7 +58,7 @@ abstract class BasePresenter<V : BaseContract.View<*>>(
 
         val networkError = NetworkError(throwable)
         val errorMsg = networkError.appErrorMessage
-        if (GeneralUtils.checkStringNotEmpty(errorMsg))
+        if (!errorMsg.isEmpty())
             view?.onError(errorMsg)
         else
             view?.onError(R.string.default_error_message)

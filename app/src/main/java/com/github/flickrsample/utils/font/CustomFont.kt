@@ -27,7 +27,7 @@ import com.github.flickrsample.R
  * Created by gk
  */
 
-object CustomFontHelper {
+object CustomFont {
 
     /**
      * Sets a font on a TextView based on the custom com.my.package:typeface attribute

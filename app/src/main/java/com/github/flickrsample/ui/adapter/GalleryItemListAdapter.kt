@@ -26,7 +26,8 @@ import com.github.flickrsample.R
 import com.github.flickrsample.data.models.local.PhotoItem
 import com.github.flickrsample.ui.custom.RoundedCornerImageView
 import com.github.flickrsample.utils.FlickrUtils
-import com.github.flickrsample.utils.GeneralUtils
+import com.github.flickrsample.utils.ext.loadImageFromLink
+import com.github.flickrsample.utils.ext.toGone
 
 /**
  * Adapter that used to display [PhotoItem] in a recycler view
@@ -45,19 +46,18 @@ class GalleryItemListAdapter(
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
         val item = mPhotoItems[position]
-        var thumbnailLink = item.url_n
-        if(thumbnailLink.isNullOrEmpty())
-            thumbnailLink = FlickrUtils.getFlickrImageLink(item.id, item.secret, item.server, item.farm, FlickrUtils.SMALL_360)
+        val thumbnailLink = item.url_n
+                ?: FlickrUtils.getFlickrImageLink(item.id, item.secret, item.server, item.farm, FlickrUtils.SMALL_360)
 
-        GeneralUtils.loadImageFromLink(mContext, holder.image, thumbnailLink!!)
+        holder.image.loadImageFromLink(thumbnailLink)
 
         if (!item.width_n.isNullOrEmpty())
             holder.image.setHeightRatio(calculateHeightRatio(item.width_n!!, item.height_n!!))
 
-        if(!item.title.isNullOrEmpty())
+        if (!item.title.isNullOrEmpty())
             holder.title.text = item.title
         else
-            holder.title.visibility = View.GONE
+            holder.title.toGone()
 
     }
 
@@ -65,7 +65,7 @@ class GalleryItemListAdapter(
         val w = width_n.toInt()
         val h = height_n.toInt()
 
-        return (h.toFloat()/w.toFloat())
+        return (h.toFloat() / w.toFloat())
     }
 
     override fun getItemCount(): Int {
@@ -88,7 +88,7 @@ class GalleryItemListAdapter(
         }
     }
 
-    interface ClickListener{
+    interface ClickListener {
         fun onClick(view: View?, position: Int)
     }
 }
