@@ -35,17 +35,17 @@ import com.github.flickrsample.utils.ext.toGone
  * Created by gk
  */
 class GalleryItemListAdapter(
-        private val mContext: Context,
-        private val mPhotoItems: List<PhotoItem>,
-        private val mListener: ClickListener?) :
+        private val context: Context,
+        private val photoItems: List<PhotoItem>,
+        private val listener: ClickListener?) :
         RecyclerView.Adapter<GalleryItemListAdapter.MyViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
-        return MyViewHolder(LayoutInflater.from(mContext).inflate(R.layout.item_gallery, parent, false))
+        return MyViewHolder(LayoutInflater.from(context).inflate(R.layout.item_gallery, parent, false))
     }
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
-        val item = mPhotoItems[position]
+        val item = photoItems[position]
         val thumbnailLink = item.url_n
                 ?: FlickrUtils.getFlickrImageLink(item.id, item.secret, item.server, item.farm, FlickrUtils.SMALL_360)
 
@@ -68,7 +68,7 @@ class GalleryItemListAdapter(
         return (h.toFloat() / w.toFloat())
     }
 
-    override fun getItemCount(): Int = mPhotoItems.size
+    override fun getItemCount(): Int = photoItems.size
 
     /**
      * View Holder for recycler view.
@@ -82,7 +82,7 @@ class GalleryItemListAdapter(
         }
 
         override fun onClick(p0: View?) {
-            mListener?.onClick(p0, adapterPosition)
+            listener?.onClick(p0, adapterPosition)
         }
     }
 

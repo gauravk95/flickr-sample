@@ -149,11 +149,11 @@ class GalleryPresenterTest {
     fun onImageClick_launchPhotoViewActivity() {
 
         //test with no elements in photo list
-        mGalleryPresenter.mPhotoList = mutableListOf()
+        mGalleryPresenter.photoList = mutableListOf()
         mGalleryPresenter.onImageClicked(0)
 
         //test with elements in photo list
-        mGalleryPresenter.mPhotoList = dummyList.toMutableList()
+        mGalleryPresenter.photoList = dummyList.toMutableList()
 
         mGalleryPresenter.onImageClicked(0)
 

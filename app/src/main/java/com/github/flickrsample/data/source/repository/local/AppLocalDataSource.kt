@@ -31,15 +31,15 @@ import io.reactivex.Flowable
  */
 @Singleton
 class AppLocalDataSource @Inject
-constructor(mDatabase: AppDatabase) : AppDataSource {
+constructor(database: AppDatabase) : AppDataSource {
 
-    private val mPhotoItemDao: PhotoItemDao = mDatabase.imageItemDao()
+    private val photoItemDao: PhotoItemDao = database.imageItemDao()
 
     override fun getPhotoResult(key: String, query: String, page: Int, perPage: Int): Flowable<PhotoResult> {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
     override fun updatePhotoItemList(photoItems: List<PhotoItem>) {
-        mPhotoItemDao.insertMultipleItem(photoItems)
+        photoItemDao.insertMultipleItem(photoItems)
     }
 }

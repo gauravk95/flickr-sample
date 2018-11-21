@@ -20,12 +20,12 @@ import com.github.flickrsample.utils.ext.loadImageFromLinkWithLoadingProgress
  */
 //FIXME: Use a Fixed MAX_SIZE for the ViewPager to avoid OUT_OF_MEMORY error, keep most recent and active items in it
 class FullScreenImageAdapter constructor(
-        private val mContext: Context,
-        private val mPhotoItems: List<PhotoItem>) : PagerAdapter() {
+        private val context: Context,
+        private val photoItems: List<PhotoItem>) : PagerAdapter() {
 
     override fun getItemPosition(obj: Any): Int {
         val dummyItem = (obj as RelativeLayout).tag as PhotoItem
-        val position = mPhotoItems.indexOf(dummyItem)
+        val position = photoItems.indexOf(dummyItem)
         return if (position >= 0) {
             // The current data matches the data in this active fragment, so let it be as it is.
             position
@@ -42,14 +42,14 @@ class FullScreenImageAdapter constructor(
 
     override fun instantiateItem(container: ViewGroup, position: Int): Any {
 
-        val inflater = mContext
+        val inflater = context
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
         val viewLayout = inflater.inflate(R.layout.pager_image_viewer, container,
                 false)
 
         val imgDisplay = viewLayout.findViewById<View>(R.id.photo_view) as ImageView
         val textDisplay = viewLayout.findViewById<View>(R.id.photo_view_text) as TextView
-        val photoItem = mPhotoItems[position]
+        val photoItem = photoItems[position]
 
         if (!photoItem.title.isNullOrEmpty())
             textDisplay.text = photoItem.title
@@ -72,6 +72,6 @@ class FullScreenImageAdapter constructor(
         (container as ViewPager).removeView(obj as RelativeLayout)
     }
 
-    override fun getCount(): Int = mPhotoItems.size
+    override fun getCount(): Int = photoItems.size
 
 }

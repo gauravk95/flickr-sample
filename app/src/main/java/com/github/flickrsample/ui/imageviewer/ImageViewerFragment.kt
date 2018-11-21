@@ -48,7 +48,7 @@ class ImageViewerFragment : BaseMVPFragment<ImageViewerContract.Presenter>(), Im
     private var query: String? = null
 
     @Inject
-    lateinit var mPresenter: ImageViewerContract.Presenter
+    lateinit var presenter: ImageViewerContract.Presenter
 
     private var mCustomPagerAdapter: FullScreenImageAdapter? = null
 
@@ -72,10 +72,10 @@ class ImageViewerFragment : BaseMVPFragment<ImageViewerContract.Presenter>(), Im
 
         val component = activityComponent
         component.inject(this)
-        mPresenter.onAttach(this)
+        presenter.onAttach(this)
 
-        mPresenter.init()
-        mPresenter.loadPhotoFromPhotoId(FlickrUtils.API_KEY, query, photoId)
+        presenter.init()
+        presenter.loadPhotoFromPhotoId(FlickrUtils.API_KEY, query, photoId)
 
         back_button.setOnClickListener { activity?.finish() }
     }
@@ -95,7 +95,7 @@ class ImageViewerFragment : BaseMVPFragment<ImageViewerContract.Presenter>(), Im
 
             }
             override fun onPageSelected(position: Int) {
-                mPresenter.loadNewPhotos(FlickrUtils.API_KEY, position)
+                presenter.loadNewPhotos(FlickrUtils.API_KEY, position)
             }
 
         })
@@ -139,7 +139,7 @@ class ImageViewerFragment : BaseMVPFragment<ImageViewerContract.Presenter>(), Im
     }
 
     override fun onDestroy() {
-        mPresenter.onDetach()
+        presenter.onDetach()
         super.onDestroy()
     }
 

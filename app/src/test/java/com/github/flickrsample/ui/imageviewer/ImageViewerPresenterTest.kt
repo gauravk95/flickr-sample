@@ -128,7 +128,7 @@ class ImageViewerPresenterTest {
 
         //set current page to 3
         mImageViewerPresenter.page = 3
-        mImageViewerPresenter.mPhotoList = dummyList.toMutableList()
+        mImageViewerPresenter.photoList = dummyList.toMutableList()
 
         //test for view pager page end not reached
         mImageViewerPresenter.isLoading = false

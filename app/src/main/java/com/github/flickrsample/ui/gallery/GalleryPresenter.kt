@@ -41,7 +41,7 @@ constructor(appRepository: AppRepository,
         BasePresenter<GalleryContract.View>(appRepository, schedulerProvider, compositeDisposable),
         GalleryContract.Presenter {
 
-    private var mDisposable: Disposable? = null
+    private var disposable: Disposable? = null
 
     //indicates whether it last page
     internal var isLastPage = false
@@ -50,7 +50,7 @@ constructor(appRepository: AppRepository,
     internal var isLoading = false
 
     //holds the list of all the photos loaded
-    internal var mPhotoList: MutableList<PhotoItem> = mutableListOf()
+    internal var photoList: MutableList<PhotoItem> = mutableListOf()
 
     //holds the current page
     internal var page: Int = 1
@@ -81,10 +81,10 @@ constructor(appRepository: AppRepository,
             dataSource.refreshItems()
 
         //remove the previous disposable from composite disposable, for multiple load items calls
-        if (mDisposable != null)
-            compositeDisposable.delete(mDisposable!!)
+        if (disposable != null)
+            compositeDisposable.delete(disposable!!)
 
-        mDisposable = dataSource.getPhotoItemList(key!!, query, page, perPage)
+        disposable = dataSource.getPhotoItemList(key!!, query, page, perPage)
                 .subscribeOn(schedulerProvider.io())
                 .observeOn(schedulerProvider.ui())
                 .subscribe({ photoItems: List<PhotoItem> ->
@@ -96,9 +96,9 @@ constructor(appRepository: AppRepository,
                     view?.dismissProgressDialog()
 
                     if (photoItems.isNotEmpty()) {
-                        mPhotoList.clear()
-                        mPhotoList.addAll(photoItems)
-                        view?.initItemList(mPhotoList)
+                        photoList.clear()
+                        photoList.addAll(photoItems)
+                        view?.initItemList(photoList)
                     }else
                         view?.showEmptyListUI()
                 }, { throwable: Throwable? ->
@@ -111,7 +111,7 @@ constructor(appRepository: AppRepository,
                     handleApiError(throwable)
                 })
 
-        compositeDisposable.add(mDisposable!!)
+        compositeDisposable.add(disposable!!)
     }
 
     /**
@@ -145,10 +145,10 @@ constructor(appRepository: AppRepository,
             dataSource.refreshItems()
 
         //remove the previous disposable from composite disposable, for multiple load items calls
-        if (mDisposable != null)
-            compositeDisposable.delete(mDisposable!!)
+        if (disposable != null)
+            compositeDisposable.delete(disposable!!)
 
-        mDisposable = dataSource.getPhotoItemList(key!!, query, page, perPage)
+        disposable = dataSource.getPhotoItemList(key!!, query, page, perPage)
                 .subscribeOn(schedulerProvider.io())
                 .observeOn(schedulerProvider.ui())
                 .subscribe({ photoItems: List<PhotoItem> ->
@@ -160,7 +160,7 @@ constructor(appRepository: AppRepository,
                     view?.hideBottomLoading()
 
                     if (photoItems.isNotEmpty()) {
-                        mPhotoList.addAll(photoItems)
+                        photoList.addAll(photoItems)
                         view?.refreshItemList()
                     }
 
@@ -174,14 +174,14 @@ constructor(appRepository: AppRepository,
                     handleApiError(throwable)
                 })
 
-        compositeDisposable.add(mDisposable!!)
+        compositeDisposable.add(disposable!!)
     }
 
     /**
      * Handle image click event
      */
     override fun onImageClicked(position: Int) {
-        if (position < mPhotoList.size)
-            view?.launchImageViewActivity(mPhotoList[position].id, query)
+        if (position < photoList.size)
+            view?.launchImageViewActivity(photoList[position].id, query)
     }
 }

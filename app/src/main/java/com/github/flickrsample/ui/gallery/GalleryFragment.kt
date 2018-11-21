@@ -47,7 +47,7 @@ class GalleryFragment : BaseMVPFragment<GalleryContract.Presenter>(), GalleryCon
     private lateinit var inflatedView: View
 
     @Inject
-    lateinit var mPresenter: GalleryContract.Presenter
+    lateinit var presenter: GalleryContract.Presenter
 
     private var itemAdapter: GalleryItemListAdapter? = null
 
@@ -63,9 +63,9 @@ class GalleryFragment : BaseMVPFragment<GalleryContract.Presenter>(), GalleryCon
 
         val component = activityComponent
         component.inject(this)
-        mPresenter.onAttach(this)
+        presenter.onAttach(this)
 
-        mPresenter.loadFirstPhotos(false, FlickrUtils.API_KEY, FlickrUtils.DEFAULT_QUERY)
+        presenter.loadFirstPhotos(false, FlickrUtils.API_KEY, FlickrUtils.DEFAULT_QUERY)
     }
 
     /**
@@ -85,10 +85,10 @@ class GalleryFragment : BaseMVPFragment<GalleryContract.Presenter>(), GalleryCon
                 val totalItemCount = gridLayoutManager.itemCount
                 val firstVisibleItems = IntArray(2)
                 val firstVisibleItemPosition = gridLayoutManager.findFirstVisibleItemPositions(firstVisibleItems)[0]
-                if (!(mPresenter as GalleryPresenter).isLoading && !(mPresenter as GalleryPresenter).isLastPage) {
+                if (!(presenter as GalleryPresenter).isLoading && !(presenter as GalleryPresenter).isLastPage) {
                     if (visibleItemCount + firstVisibleItemPosition >= totalItemCount
                             && firstVisibleItemPosition >= 0) {
-                        mPresenter.loadNextPhotos(false, FlickrUtils.API_KEY, FlickrUtils.DEFAULT_QUERY)
+                        presenter.loadNextPhotos(false, FlickrUtils.API_KEY, FlickrUtils.DEFAULT_QUERY)
                     }
                 }
             }
@@ -109,7 +109,7 @@ class GalleryFragment : BaseMVPFragment<GalleryContract.Presenter>(), GalleryCon
         itemAdapter = GalleryItemListAdapter(context!!, photoItemList, object : GalleryItemListAdapter.ClickListener {
             override fun onClick(view: View?, position: Int) {
                 if (view != null)
-                    mPresenter.onImageClicked(position)
+                    presenter.onImageClicked(position)
             }
         })
         item_recycler_view.adapter = itemAdapter
@@ -155,7 +155,7 @@ class GalleryFragment : BaseMVPFragment<GalleryContract.Presenter>(), GalleryCon
     }
 
     override fun onDestroy() {
-        mPresenter.onDetach()
+        presenter.onDetach()
         super.onDestroy()
     }
 

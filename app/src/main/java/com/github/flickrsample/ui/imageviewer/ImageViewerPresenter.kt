@@ -42,7 +42,7 @@ constructor(appRepository: AppRepository,
         BasePresenter<ImageViewerContract.View>(appRepository, schedulerProvider, compositeDisposable),
         ImageViewerContract.Presenter {
 
-    private var mDisposable: Disposable? = null
+    private var disposable: Disposable? = null
 
     //holds the query, that is used for search
     @VisibleForTesting
@@ -50,7 +50,7 @@ constructor(appRepository: AppRepository,
 
     //holds the list of all the photos loaded
     @VisibleForTesting
-    internal var mPhotoList: MutableList<PhotoItem> = mutableListOf()
+    internal var photoList: MutableList<PhotoItem> = mutableListOf()
 
     //indicates whether the items is loading elements or not
     @VisibleForTesting
@@ -85,10 +85,10 @@ constructor(appRepository: AppRepository,
         view?.showProgressDialog()
 
         //remove the previous disposable from composite disposable, for multiple load items calls
-        if (mDisposable != null)
-            compositeDisposable.delete(mDisposable!!)
+        if (disposable != null)
+            compositeDisposable.delete(disposable!!)
 
-        mDisposable = dataSource.getCachedPhotoItems()
+        disposable = dataSource.getCachedPhotoItems()
                 .subscribeOn(schedulerProvider.io())
                 .observeOn(schedulerProvider.ui())
                 .subscribe({ photoItems: List<PhotoItem> ->
@@ -98,10 +98,10 @@ constructor(appRepository: AppRepository,
                     view?.dismissProgressDialog()
 
                     if (photoItems.isNotEmpty()) {
-                        mPhotoList.clear()
-                        mPhotoList.addAll(photoItems)
-                        view?.initViewPager(mPhotoList)
-                        view?.updateCurrentPage(findPhotoItemIndexById(photoId, mPhotoList))
+                        photoList.clear()
+                        photoList.addAll(photoItems)
+                        view?.initViewPager(photoList)
+                        view?.updateCurrentPage(findPhotoItemIndexById(photoId, photoList))
                     } else
                         view?.showEmptyUI()
                 }, { throwable: Throwable? ->
@@ -112,7 +112,7 @@ constructor(appRepository: AppRepository,
                     handleApiError(throwable)
                 })
 
-        compositeDisposable.add(mDisposable!!)
+        compositeDisposable.add(disposable!!)
     }
 
     /**
@@ -121,7 +121,7 @@ constructor(appRepository: AppRepository,
     override fun loadNewPhotos(key: String?, position: Int) {
         // no need to get new data if pagination is ended,
         // or view pager end is not reached
-        if (position < (mPhotoList.size - 1) || dataSource.getPaginationStatus() || isLoading)
+        if (position < (photoList.size - 1) || dataSource.getPaginationStatus() || isLoading)
             return
 
         if (key.isNullOrEmpty()) {
@@ -137,10 +137,10 @@ constructor(appRepository: AppRepository,
         view?.showProgressBar()
 
         //remove the previous disposable from composite disposable, for multiple load items calls
-        if (mDisposable != null)
-            compositeDisposable.delete(mDisposable!!)
+        if (disposable != null)
+            compositeDisposable.delete(disposable!!)
 
-        mDisposable = dataSource.getPhotoItemList(key!!, query!!, page, perPage)
+        disposable = dataSource.getPhotoItemList(key!!, query!!, page, perPage)
                 .subscribeOn(schedulerProvider.io())
                 .observeOn(schedulerProvider.ui())
                 .subscribe({ photoItems: List<PhotoItem> ->
@@ -152,7 +152,7 @@ constructor(appRepository: AppRepository,
                     view?.hideProgressBar()
 
                     if (photoItems.isNotEmpty()) {
-                        mPhotoList.addAll(photoItems)
+                        photoList.addAll(photoItems)
                         view?.refreshViewPager()
                     }
 
@@ -166,7 +166,7 @@ constructor(appRepository: AppRepository,
                     handleApiError(throwable)
                 })
 
-        compositeDisposable.add(mDisposable!!)
+        compositeDisposable.add(disposable!!)
     }
 
     /**

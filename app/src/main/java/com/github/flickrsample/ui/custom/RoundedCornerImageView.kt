@@ -15,12 +15,12 @@ import com.github.flickrsample.R
  */
 class RoundedCornerImageView : ImageView {
 
-    private var mRadius = 8.0f
-    private var mPath: Path = Path()
-    private var mRect: RectF = RectF()
-    private var mInitRect: Boolean = false
+    private var radius = 8.0f
+    private var path: Path = Path()
+    private var rect: RectF = RectF()
+    private var initRect: Boolean = false
 
-    private var mHeightRatio: Float = 0.0f
+    private var heightRatio: Float = 0.0f
 
     constructor(context: Context) : super(context) {
         //do something
@@ -43,7 +43,7 @@ class RoundedCornerImageView : ImageView {
             if (typedArray != null && typedArray.length() > 0) {
                 try {
                     //get the text and colors specified using the names in attrs.xml
-                    this.mRadius = typedArray.getDimension(R.styleable.RoundedCornerImageView_corner, 8.0f)
+                    this.radius = typedArray.getDimension(R.styleable.RoundedCornerImageView_corner, 8.0f)
                 } finally {
                     typedArray.recycle()
                 }
@@ -53,20 +53,20 @@ class RoundedCornerImageView : ImageView {
 
     //Here we will set the aspect ratio
     fun setHeightRatio(ratio: Float) {
-        if (ratio != mHeightRatio) {
-            mHeightRatio = ratio
+        if (ratio != heightRatio) {
+            heightRatio = ratio
             requestLayout()
         }
     }
 
-    fun getHeightRatio(): Float =  mHeightRatio
+    fun getHeightRatio(): Float =  heightRatio
 
     override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
-        if (mHeightRatio > 0.0) {
+        if (heightRatio > 0.0) {
             // set the image views size
             val width = View.MeasureSpec.getSize(widthMeasureSpec)
-            val height = (width * mHeightRatio).toInt()
-            mInitRect = false
+            val height = (width * heightRatio).toInt()
+            initRect = false
             invalidate()
             setMeasuredDimension(width, height)
         } else {
@@ -76,13 +76,13 @@ class RoundedCornerImageView : ImageView {
     }
 
     override fun onDraw(canvas: Canvas) {
-        if(!mInitRect) {
-            mRect = RectF(0f, 0f, this.width.toFloat(), this.height.toFloat())
-            mInitRect = true
+        if(!initRect) {
+            rect = RectF(0f, 0f, this.width.toFloat(), this.height.toFloat())
+            initRect = true
         }
 
-        mPath.addRoundRect(mRect, mRadius, mRadius, Path.Direction.CW)
-        canvas.clipPath(mPath)
+        path.addRoundRect(rect, radius, radius, Path.Direction.CW)
+        canvas.clipPath(path)
         super.onDraw(canvas)
     }
 
