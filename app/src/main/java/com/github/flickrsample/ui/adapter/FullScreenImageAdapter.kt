@@ -72,8 +72,6 @@ class FullScreenImageAdapter constructor(
         (container as ViewPager).removeView(obj as RelativeLayout)
     }
 
-    override fun getCount(): Int {
-        return this.mPhotoItems.size
-    }
+    override fun getCount(): Int = mPhotoItems.size
 
 }

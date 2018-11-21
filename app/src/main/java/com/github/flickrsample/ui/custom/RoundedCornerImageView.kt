@@ -59,9 +59,7 @@ class RoundedCornerImageView : ImageView {
         }
     }
 
-    fun getHeightRatio(): Float {
-        return mHeightRatio
-    }
+    fun getHeightRatio(): Float =  mHeightRatio
 
     override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
         if (mHeightRatio > 0.0) {

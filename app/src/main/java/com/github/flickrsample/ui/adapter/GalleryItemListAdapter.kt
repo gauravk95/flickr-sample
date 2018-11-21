@@ -68,9 +68,7 @@ class GalleryItemListAdapter(
         return (h.toFloat() / w.toFloat())
     }
 
-    override fun getItemCount(): Int {
-        return mPhotoItems.size
-    }
+    override fun getItemCount(): Int = mPhotoItems.size
 
     /**
      * View Holder for recycler view.
