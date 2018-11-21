@@ -44,19 +44,19 @@ constructor(appRepository: AppRepository,
     private var mDisposable: Disposable? = null
 
     //indicates whether it last page
-    var isLastPage = false
+    internal var isLastPage = false
 
     //indicates whether the items is loading elements or not
-    var isLoading = false
+    internal var isLoading = false
 
     //holds the list of all the photos loaded
-    var mPhotoList: MutableList<PhotoItem> = mutableListOf()
+    internal var mPhotoList: MutableList<PhotoItem> = mutableListOf()
 
     //holds the current page
-    var page: Int = 1
+    internal var page: Int = 1
 
-    //holds the element per page
-    private var perPage: Int = FlickrUtils.DEFAULT_PAGE_SIZE
+    //holds the num element per page
+    private val perPage: Int = FlickrUtils.DEFAULT_PAGE_SIZE
 
     private var query: String = FlickrUtils.DEFAULT_QUERY
 

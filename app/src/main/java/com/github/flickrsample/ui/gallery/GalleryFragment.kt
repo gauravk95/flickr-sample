@@ -44,7 +44,7 @@ import javax.inject.Inject
  */
 class GalleryFragment : BaseMVPFragment<GalleryContract.Presenter>(), GalleryContract.View {
 
-    private var inflatedView: View? = null
+    private lateinit var inflatedView: View
 
     @Inject
     lateinit var mPresenter: GalleryContract.Presenter

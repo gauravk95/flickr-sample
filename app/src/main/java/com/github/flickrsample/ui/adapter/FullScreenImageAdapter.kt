@@ -23,12 +23,6 @@ class FullScreenImageAdapter constructor(
         private val mContext: Context,
         private val mPhotoItems: List<PhotoItem>) : PagerAdapter() {
 
-    private var inflater: LayoutInflater? = null
-
-    override fun getCount(): Int {
-        return this.mPhotoItems.size
-    }
-
     override fun getItemPosition( obj: Any): Int {
         val dummyItem = (obj as RelativeLayout).tag as PhotoItem
         val position = mPhotoItems.indexOf(dummyItem)
@@ -48,9 +42,9 @@ class FullScreenImageAdapter constructor(
 
     override fun instantiateItem(container: ViewGroup, position: Int): Any {
 
-        inflater = mContext
+        val inflater = mContext
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
-        val viewLayout = inflater!!.inflate(R.layout.pager_image_viewer, container,
+        val viewLayout = inflater.inflate(R.layout.pager_image_viewer, container,
                 false)
 
         val imgDisplay = viewLayout.findViewById<View>(R.id.photo_view) as ImageView
@@ -76,7 +70,10 @@ class FullScreenImageAdapter constructor(
 
     override fun destroyItem(container: ViewGroup, position: Int, obj: Any) {
         (container as ViewPager).removeView(obj as RelativeLayout)
+    }
 
+    override fun getCount(): Int {
+        return this.mPhotoItems.size
     }
 
 }

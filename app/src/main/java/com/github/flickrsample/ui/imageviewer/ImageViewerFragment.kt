@@ -42,9 +42,9 @@ import javax.inject.Inject
  */
 class ImageViewerFragment : BaseMVPFragment<ImageViewerContract.Presenter>(), ImageViewerContract.View {
 
-    private var inflatedView: View? = null
+    private lateinit var inflatedView: View
 
-    private var photoId: String? = null
+    private lateinit var photoId: String
     private var query: String? = null
 
     @Inject

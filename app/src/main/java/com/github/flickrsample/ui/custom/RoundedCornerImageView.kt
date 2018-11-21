@@ -16,14 +16,14 @@ import com.github.flickrsample.R
 class RoundedCornerImageView : ImageView {
 
     private var mRadius = 8.0f
-    private var mPath: Path? = null
-    private var mRect: RectF? = null
+    private var mPath: Path = Path()
+    private var mRect: RectF = RectF()
     private var mInitRect: Boolean = false
 
     private var mHeightRatio: Float = 0.0f
 
     constructor(context: Context) : super(context) {
-        init()
+        //do something
     }
 
     constructor(context: Context, attrs: AttributeSet) : super(context, attrs) {
@@ -34,13 +34,7 @@ class RoundedCornerImageView : ImageView {
         init(context,attrs)
     }
 
-    private fun init(){
-        mPath = Path()
-    }
-
     private fun init(context: Context, attrs: AttributeSet?) {
-
-        mPath = Path()
 
         //get the attributes specified in attrs.xml using the name we included
         if (attrs != null) {
@@ -89,8 +83,8 @@ class RoundedCornerImageView : ImageView {
             mInitRect = true
         }
 
-        mPath!!.addRoundRect(mRect, mRadius, mRadius, Path.Direction.CW)
-        canvas.clipPath(mPath!!)
+        mPath.addRoundRect(mRect, mRadius, mRadius, Path.Direction.CW)
+        canvas.clipPath(mPath)
         super.onDraw(canvas)
     }
 

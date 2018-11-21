@@ -15,6 +15,7 @@
 */
 package com.github.flickrsample.ui.imageviewer
 
+import android.support.annotation.VisibleForTesting
 import com.github.flickrsample.R
 import com.github.flickrsample.base.BasePresenter
 import com.github.flickrsample.data.models.local.PhotoItem
@@ -44,16 +45,19 @@ constructor(appRepository: AppRepository,
     private var mDisposable: Disposable? = null
 
     //holds the query, that is used for search
-    var query: String? = null
+    @VisibleForTesting
+    internal var query: String? = null
 
     //holds the list of all the photos loaded
-    var mPhotoList: MutableList<PhotoItem> = mutableListOf()
+    @VisibleForTesting
+    internal var mPhotoList: MutableList<PhotoItem> = mutableListOf()
 
     //indicates whether the items is loading elements or not
-    var isLoading = false
+    @VisibleForTesting
+    internal var isLoading = false
 
     //holds the current page
-    var page: Int = 1
+    internal var page: Int = 1
 
     //holds the element per page
     private var perPage: Int = FlickrUtils.DEFAULT_PAGE_SIZE
