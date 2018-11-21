@@ -30,6 +30,8 @@ import com.github.flickrsample.ui.adapter.GalleryItemListAdapter
 import com.github.flickrsample.ui.imageviewer.ImageViewerActivity
 import com.github.flickrsample.utils.AppConstants
 import com.github.flickrsample.utils.FlickrUtils
+import com.github.flickrsample.utils.ext.toGone
+import com.github.flickrsample.utils.ext.toVisible
 
 import kotlinx.android.synthetic.main.fragment_gallery.*
 
@@ -103,8 +105,8 @@ class GalleryFragment : BaseMVPFragment<GalleryContract.Presenter>(), GalleryCon
      * Initializes the list for the first time with photos data
      */
     override fun initItemList(photoItemList: List<PhotoItem>) {
-        item_recycler_view.visibility = View.VISIBLE
-        empty_list_text.visibility = View.GONE
+        item_recycler_view.toVisible()
+        empty_list_text.toGone()
 
         itemAdapter = GalleryItemListAdapter(context!!, photoItemList, object : GalleryItemListAdapter.ClickListener {
             override fun onClick(view: View?, position: Int) {
@@ -126,22 +128,22 @@ class GalleryFragment : BaseMVPFragment<GalleryContract.Presenter>(), GalleryCon
      *  Shows empty photos list messages
      */
     override fun showEmptyListUI() {
-        item_recycler_view.visibility = View.GONE
-        empty_list_text.visibility = View.VISIBLE
+        item_recycler_view.toGone()
+        empty_list_text.toVisible()
     }
 
     /**
      *  Shows bottom loading when fetching new elements
      */
     override fun showBottomLoading() {
-        bottom_progress_bar.visibility = View.VISIBLE
+        bottom_progress_bar.toVisible()
     }
 
     /**
      * Hide the bottom loading
      */
     override fun hideBottomLoading() {
-        bottom_progress_bar.visibility = View.GONE
+        bottom_progress_bar.toGone()
     }
 
     /**

@@ -28,6 +28,8 @@ import com.github.flickrsample.data.models.local.PhotoItem
 import com.github.flickrsample.ui.adapter.FullScreenImageAdapter
 import com.github.flickrsample.utils.AppConstants
 import com.github.flickrsample.utils.FlickrUtils
+import com.github.flickrsample.utils.ext.toGone
+import com.github.flickrsample.utils.ext.toVisible
 
 import kotlinx.android.synthetic.main.fragment_image_viewer.*
 
@@ -120,22 +122,22 @@ class ImageViewerFragment : BaseMVPFragment<ImageViewerContract.Presenter>(), Im
      * Shows Empty UI
      */
     override fun showEmptyUI() {
-        view_pager.visibility = View.GONE
-        empty_photo_viewer.visibility = View.VISIBLE
+        view_pager.toGone()
+        empty_photo_viewer.toVisible()
     }
 
     /**
      * Shows progress bar
      */
     override fun showProgressBar() {
-        next_image_loading.visibility = View.VISIBLE
+        next_image_loading.toVisible()
     }
 
     /**
      * Hide progress bar
      */
     override fun hideProgressBar() {
-        next_image_loading.visibility = View.GONE
+        next_image_loading.toVisible()
     }
 
     override fun onDestroy() {
